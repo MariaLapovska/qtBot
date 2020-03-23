@@ -7,18 +7,12 @@ import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingC
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class QtBot extends TelegramLongPollingCommandBot {
-    private String botToken;
-    private String botName;
 
-    public QtBot(DefaultBotOptions botOptions, String botToken, String botName) {
+    public QtBot(DefaultBotOptions botOptions) {
         super(botOptions);
-
-        this.botToken = botToken;
-        this.botName = botName;
 
         register(new StartCommand());
         HelpCommand helpCommand = new HelpCommand(this);
@@ -40,12 +34,12 @@ public class QtBot extends TelegramLongPollingCommandBot {
 
     @Override
     public String getBotToken() {
-        return botToken;
+        return System.getenv("bot.token");
     }
 
     @Override
     public String getBotUsername() {
-        return botName;
+        return System.getenv("bot.name");
     }
 
     @Override
