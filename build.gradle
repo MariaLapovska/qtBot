@@ -28,5 +28,13 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'io.marvellab.qtbot.BotInitializer'
+        )
+    }
+}
+
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
