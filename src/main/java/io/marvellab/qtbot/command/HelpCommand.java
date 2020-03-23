@@ -11,7 +11,7 @@ public final class HelpCommand extends QtBotCommand {
     private final ICommandRegistry commandRegistry;
 
     public HelpCommand(ICommandRegistry commandRegistry) {
-        super("help", "list all known commands\n");
+        super("help", "List all known commands\n");
         this.commandRegistry = commandRegistry;
     }
 

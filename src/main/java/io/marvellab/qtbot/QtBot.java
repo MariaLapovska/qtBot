@@ -2,8 +2,8 @@ package io.marvellab.qtbot;
 
 import io.marvellab.qtbot.command.DefaultAction;
 import io.marvellab.qtbot.command.HelpCommand;
+import io.marvellab.qtbot.command.MoodCommand;
 import io.marvellab.qtbot.command.StartCommand;
-import io.marvellab.qtbot.util.BotUtils;
 import lombok.extern.log4j.Log4j2;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
@@ -22,6 +22,7 @@ public final class QtBot extends TelegramLongPollingCommandBot {
         register(new StartCommand());
         HelpCommand helpCommand = new HelpCommand(this);
         register(new HelpCommand(this));
+        register(new MoodCommand());
 
         registerDefaultAction(new DefaultAction(helpCommand));
     }
@@ -43,9 +44,11 @@ public final class QtBot extends TelegramLongPollingCommandBot {
 
         log.debug("Executing non-command update per user [name='{}'; id='{}'] request", user.getUserName(), user.getId());
 
+        String answerText = String.format("Sorry, %s, I don't know how to respond yet. Please, try later", user.getFirstName());
+
         SendMessage answer = new SendMessage()
                 .setChatId(message.getChatId())
-                .setText(String.format("Sorry, %s, I don't know how to respond yet. Please, try later", BotUtils.getUserName(user)));
+                .setText(answerText);
 
         try {
             log.debug("Sending answer to user [name='{}'; id='{}']", user.getUserName(), user.getId());

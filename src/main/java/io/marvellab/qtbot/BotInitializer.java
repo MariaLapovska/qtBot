@@ -1,5 +1,7 @@
 package io.marvellab.qtbot;
 
+import com.github.rodionmoiseev.c10n.C10N;
+import com.github.rodionmoiseev.c10n.annotations.DefaultC10NAnnotations;
 import lombok.extern.log4j.Log4j2;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
@@ -12,6 +14,8 @@ public class BotInitializer {
 
     public static void main(String[] args) {
         log.info("Starting application...");
+
+        C10N.configure(new DefaultC10NAnnotations());
 
         ApiContextInitializer.init();
 
