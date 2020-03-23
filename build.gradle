@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.github.johnrengelman.shadow" version "5.2.0"
 }
 
 group 'io.marvellab'
@@ -31,11 +32,10 @@ dependencies {
 jar {
     manifest {
         attributes(
-                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
                 'Main-Class': 'io.marvellab.qtbot.BotInitializer'
         )
     }
 }
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
+task stage(dependsOn: ['shadowJar', 'clean'])
+shadowJar.mustRunAfter clean
