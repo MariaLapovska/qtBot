@@ -4,4 +4,6 @@ appender("Console-Appender", ConsoleAppender) {
     }
 }
 
-root(DEBUG, ["Console-Appender"])
+logger("io.marvellab.qtbot", DEBUG, ["Console-Appender"], false)
+
+root(ERROR, ["Console-Appender"])

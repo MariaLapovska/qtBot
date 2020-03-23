@@ -1,1 +1,1 @@
-botinit: java $JAVA_OPTS -jar build/libs/qtbot-1.0-SNAPSHOT-all.jar
+web: java $JAVA_OPTS -jar build/libs/qtbot-1.0-SNAPSHOT-all.jar
