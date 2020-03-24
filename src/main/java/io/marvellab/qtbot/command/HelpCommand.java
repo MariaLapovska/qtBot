@@ -1,5 +1,7 @@
 package io.marvellab.qtbot.command;
 
+import io.marvellab.qtbot.message.Messages;
+import io.marvellab.qtbot.util.BotUtils;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.ICommandRegistry;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -17,7 +19,8 @@ public final class HelpCommand extends QtBotCommand {
 
     @Override
     public SendMessage generateMessage(AbsSender absSender, User user, Chat chat, String[] strings) {
-        StringBuilder helpMessageBuilder = new StringBuilder("<b>Available commands:</b>\n\n");
+        Messages messages = BotUtils.getUserLocale(user, Messages.class);
+        StringBuilder helpMessageBuilder = new StringBuilder(messages.availableCommands());
 
         commandRegistry.getRegisteredCommands()
                 .forEach(cmd -> helpMessageBuilder.append(cmd.toString()).append("\n"));

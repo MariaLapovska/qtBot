@@ -1,5 +1,7 @@
 package io.marvellab.qtbot.command;
 
+import io.marvellab.qtbot.message.Messages;
+import io.marvellab.qtbot.util.BotUtils;
 import lombok.extern.log4j.Log4j2;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -21,12 +23,13 @@ public final class DefaultAction implements BiConsumer<AbsSender, Message> {
     @Override
     public void accept(AbsSender absSender, Message message) {
         User user = message.getFrom();
+        Messages messages = BotUtils.getUserLocale(user, Messages.class);
 
         log.debug("Executing default action for invalid command '{}' per user [name='{}'; id='{}'] request", message.getText(), user.getUserName(), user.getId());
 
         SendMessage text = new SendMessage()
                 .setChatId(message.getChatId())
-                .setText(message.getText() + " command not found!");
+                .setText(messages.commandNotFound(message.getText()));
 
         try {
             log.debug("Sending message to user [name='{}'; id='{}']", user.getUserName(), user.getId());

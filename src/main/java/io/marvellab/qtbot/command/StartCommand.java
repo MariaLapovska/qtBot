@@ -1,5 +1,7 @@
 package io.marvellab.qtbot.command;
 
+import io.marvellab.qtbot.message.Messages;
+import io.marvellab.qtbot.util.BotUtils;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -13,12 +15,10 @@ public final class StartCommand extends QtBotCommand {
 
     @Override
     public SendMessage generateMessage(AbsSender absSender, User user, Chat chat, String[] strings) {
+        Messages messages = BotUtils.getUserLocale(user, Messages.class);
+
         return new SendMessage()
                 .setChatId(chat.getId().toString())
-                .setText(formatMessageText(user));
-    }
-
-    private String formatMessageText(User user) {
-        return String.format("Hi, %s! Thanks for using this bot! It's still under construction, but will be ready soon :)", user.getFirstName());
+                .setText(messages.startMessage(user.getFirstName()));
     }
 }
